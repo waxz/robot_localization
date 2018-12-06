@@ -187,7 +187,7 @@ install(FILES
 #############
 ## Testing ##
 #############
-
+set (CATKIN_ENABLE_TESTING false)
 if (CATKIN_ENABLE_TESTING)
 
   # Not really necessary, but it will cause the build to fail if it's

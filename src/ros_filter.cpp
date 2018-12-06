@@ -69,7 +69,7 @@ namespace RobotLocalization
       smoothLaggedData_(false),
       disabledAtStartup_(false),
       enabled_(false),
-      toggledOn_(true)
+      toggledOn_(false)
   {
     stateVariableNames_.push_back("X");
     stateVariableNames_.push_back("Y");
@@ -1846,6 +1846,8 @@ namespace RobotLocalization
         {
           filter_.setLastMeasurementTime(ros::Time::now().toSec());
         }
+          //todo: add toggledOn_ as switch
+          continue;
       }
 
       // Get latest state and publish it
@@ -1995,6 +1997,21 @@ namespace RobotLocalization
     RF_DEBUG("------ RosFilter::setPoseCallback ------\nPose message:\n" << *msg);
 
     ROS_INFO_STREAM("Received set_pose request with value\n" << *msg);
+
+      // todo: toggle node with seq
+      // 1: on, 0 : off
+      if (msg->header.frame_id == "off"){
+          toggledOn_ = false;
+
+          ROS_INFO_STREAM("Received toggledOn value " <<toggledOn_);
+
+          return;
+      }else{
+          toggledOn_ = true;
+          ROS_INFO_STREAM("Received toggledOn value " <<toggledOn_);
+
+
+      }
 
     std::string topicName("setPose");
 
